@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Administrador{
@@ -49,33 +48,34 @@ public class Administrador{
 				toString();
 				
 				try {
+					
 					BufferedWriter writer = new BufferedWriter(new FileWriter("Hoteis.txt"));
 					
-				if(hoteis[0] != null) {
+				if(hoteis[0] == null) {
 					hoteis[0] = toString();
 					writer.write("\n"+ hoteis[0]);
 					System.out.println("Muito bem, o Hotel "+nomeHotel+" foi adicionado a rede de Hoteis.");
 				}
-				else if(hoteis[1] != null) {
+				else if(hoteis[1] == null) {
 					hoteis[1] = toString();
 					writer.write("\n"+ hoteis[1]);
 					System.out.println("Muito bem, o Hotel "+nomeHotel+" foi adicionado a rede de Hoteis.");
 				}
-				else if(hoteis[2] != null) {
+				else if(hoteis[2] == null) {
 					hoteis[2] = toString();
 					writer.write("\n"+ hoteis[2]);
 					System.out.println("Muito bem, o Hotel "+nomeHotel+" foi adicionado a rede de Hoteis.");
 				}
-				else if(hoteis[3] != null) {
+				else if(hoteis[3] == null) {
 					hoteis[3] = toString();
 					writer.write("\n"+ hoteis[3]);
 					System.out.println("Muito bem, o Hotel "+nomeHotel+" foi adicionado a rede de Hoteis.");
 				}
-				else if(hoteis[4] != null) {
+				else if(hoteis[4] == null) {
 					hoteis[4] = toString();
 					writer.write("\n"+ hoteis[4]);
 					System.out.println("Muito bem, o Hotel "+nomeHotel+" foi adicionado a rede de Hoteis.");	
-				}
+				} 
 				else {
 					System.out.println("Nao eh possivel adicionar nenhum hotel no momento.");
 				}
@@ -85,14 +85,14 @@ public class Administrador{
 					e.printStackTrace();
 				}
 				
-				for(int i = 0 ; i <= hoteis.length ; i++) {
+				/*for(int i = 0 ; i <= hoteis.length ; i++) {
 					if(hoteis[i] != null) {
 						hotelNomes[i] = nomeHotel;
 						hotelEnderecos[i] = enderecoHotel;
 						hotelQuartos[i] = quartosHotel;
 						hotelDescricoes[i] = descricaoHotel;
 					}
-				}	
+				}*/ 	
 			} else {
 				System.out.println("Transacao cancelada");
 			}
@@ -103,7 +103,7 @@ public class Administrador{
 	
 	void listarHotel() {
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader("output.txt"));
+			BufferedReader reader = new BufferedReader(new FileReader("Hoteis.txt"));
 		    String line;
 		    //isso to puxando todas as linhas uma por uma
 		    while((line = reader.readLine()) != null) {

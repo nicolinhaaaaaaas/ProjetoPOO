@@ -7,13 +7,17 @@ public class Hotel {
 	private String enderecoHotel;
 	private String descricaoHotel;
 	private Integer quartoHotel;
+	private Boolean hotelExiste;
+	
+	Scanner scanner = new Scanner(System.in);
 	
 	
-	Hotel(String nomeHotel, String enderecoHotel, String descricaoHotel, Integer quartoHotel){
+	Hotel(String nomeHotel, String enderecoHotel, String descricaoHotel, Integer quartoHotel, Boolean hotelExiste){
 		this.nomeHotel = nomeHotel;
 		this.enderecoHotel = enderecoHotel;
 		this.descricaoHotel = descricaoHotel;
 		this.quartoHotel = quartoHotel;
+		this.setHotelExiste(hotelExiste);
 	}
 	
 	public void setNomeHotel(String nomeHotel) {
@@ -42,19 +46,70 @@ public class Hotel {
 	}
 	
 	public void adicionarHotel() {
-		
-		
+		System.out.print("Digite o nome do Hotel: ");
+		String novoNome = scanner.next();
+		setNomeHotel(novoNome);
+		System.out.print("Digite o endereco do Hotel: ");
+		String novoEndereco = scanner.next();
+		setEndereco(novoEndereco);
+		System.out.print("Digite uma breve descricao do Hotel: ");
+		String novaDescricao = scanner.next();
+		setDescricao(novaDescricao);
+		System.out.print("Digite a quantidade de quartos disponiveis no Hotel: ");
+		Integer novoQuarto = scanner.nextInt();
+		setQuarto(novoQuarto);
 	}
 	
 	public void removerHotel() {
-		
+		System.out.print("Tem certeza que deseja remover este hotel? (1)-Sim ; (2)-Nao");
+		Integer opcao = scanner.nextInt();
+		if(opcao.equals(1)) {
+			setNomeHotel(null);
+			setEndereco(null);
+			setDescricao(null);
+			setQuarto(0);
+			System.out.println("Hotel removido com sucesso");
+		}
+		else {
+			System.out.println("Operacao cancelada.");
+		}
 	}
 	
 	public void modificarHotel() {
-		
+		System.out.print("Tem certeza que deseja remover este hotel? (1)-Sim ; (2)-Nao");
+		Integer opcao = scanner.nextInt();
+		if(opcao.equals(1)) {
+			System.out.print("Digite o nome do Hotel: ");
+			String novoNome = scanner.next();
+			setNomeHotel(novoNome);
+			System.out.print("Digite o endereco do Hotel: ");
+			String novoEndereco = scanner.next();
+			setEndereco(novoEndereco);
+			System.out.print("Digite uma breve descricao do Hotel: ");
+			String novaDescricao = scanner.next();
+			setDescricao(novaDescricao);
+			System.out.print("Digite a quantidade de quartos disponiveis no Hotel: ");
+			Integer novoQuarto = scanner.nextInt();
+			setQuarto(novoQuarto);
+		}
+		else {
+			System.out.println("Operacao cancelada.");
+		}
+	}
+	
+	public void listarHotel() {
+		System.out.println("Nome: " + getNomeHotel() + "\t Endereco: "+ getEndereco()+ "\t Nmr de quartos: "+ getQuarto() + "\t Descricao: "+ getDescricao());
 	}
 	
 	public String toString() {
-		return nomeHotel + enderecoHotel + descricaoHotel + quartoHotel;
+		return nomeHotel + "\t" + enderecoHotel + "\t" + descricaoHotel + "\t" + quartoHotel;
+	}
+
+	public Boolean getHotelExiste() {
+		return hotelExiste;
+	}
+
+	public void setHotelExiste(Boolean hotelExiste) {
+		this.hotelExiste = hotelExiste;
 	}
 }

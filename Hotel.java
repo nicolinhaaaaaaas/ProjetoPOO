@@ -46,18 +46,22 @@ public class Hotel {
 	}
 	
 	public void adicionarHotel() {
-		System.out.print("Digite o nome do Hotel: ");
-		String novoNome = scanner.next();
-		setNomeHotel(novoNome);
-		System.out.print("Digite o endereco do Hotel: ");
-		String novoEndereco = scanner.next();
-		setEndereco(novoEndereco);
-		System.out.print("Digite uma breve descricao do Hotel: ");
-		String novaDescricao = scanner.next();
-		setDescricao(novaDescricao);
-		System.out.print("Digite a quantidade de quartos disponiveis no Hotel: ");
-		Integer novoQuarto = scanner.nextInt();
-		setQuarto(novoQuarto);
+		try {
+			System.out.print("Digite o nome do Hotel: ");
+			String novoNome = scanner.next();
+			setNomeHotel(novoNome);
+			System.out.print("Digite o endereco do Hotel: ");
+			String novoEndereco = scanner.next();
+			setEndereco(novoEndereco);
+			System.out.print("Digite uma breve descricao do Hotel: ");
+			String novaDescricao = scanner.next();
+			setDescricao(novaDescricao);
+			System.out.print("Digite a quantidade de quartos disponiveis no Hotel: ");
+			Integer novoQuarto = scanner.nextInt();
+			setQuarto(novoQuarto);
+		} catch(InputMismatchException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void removerHotel() {
@@ -79,18 +83,22 @@ public class Hotel {
 		System.out.print("Tem certeza que deseja remover este hotel? (1)-Sim ; (2)-Nao");
 		Integer opcao = scanner.nextInt();
 		if(opcao.equals(1)) {
-			System.out.print("Digite o nome do Hotel: ");
-			String novoNome = scanner.next();
-			setNomeHotel(novoNome);
-			System.out.print("Digite o endereco do Hotel: ");
-			String novoEndereco = scanner.next();
-			setEndereco(novoEndereco);
-			System.out.print("Digite uma breve descricao do Hotel: ");
-			String novaDescricao = scanner.next();
-			setDescricao(novaDescricao);
-			System.out.print("Digite a quantidade de quartos disponiveis no Hotel: ");
-			Integer novoQuarto = scanner.nextInt();
-			setQuarto(novoQuarto);
+			try {
+				System.out.print("Digite o nome do Hotel: ");
+				String novoNome = scanner.next();
+				setNomeHotel(novoNome);
+				System.out.print("Digite o endereco do Hotel: ");
+				String novoEndereco = scanner.next();
+				setEndereco(novoEndereco);
+				System.out.print("Digite uma breve descricao do Hotel: ");
+				String novaDescricao = scanner.next();
+				setDescricao(novaDescricao);
+				System.out.print("Digite a quantidade de quartos disponiveis no Hotel: ");
+				Integer novoQuarto = scanner.nextInt();
+				setQuarto(novoQuarto);
+			} catch(InputMismatchException e) {
+				e.printStackTrace();
+			}
 		}
 		else {
 			System.out.println("Operacao cancelada.");

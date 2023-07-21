@@ -2,6 +2,7 @@ package projeto;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.*;
 
 public class Main {
 	
@@ -13,12 +14,13 @@ public class Main {
 		
 		ArrayList<Object> Hoteis = new ArrayList<>();
 		
-		
 		Hotel hotel1 = new Hotel(null, null, null, 0, false);
 		Hotel hotel2 = new Hotel(null, null, null, 0, false);
 		Hotel hotel3 = new Hotel(null, null, null, 0, false);
 		Hotel hotel4 = new Hotel(null, null, null, 0, false);
 		Hotel hotel5 = new Hotel(null, null, null, 0, false);
+		
+		
 
 		while(true) {
 			opcoesAdm();
@@ -27,6 +29,25 @@ public class Main {
 			switch(opcao) {
 		
 			case 1:
+				try {
+					BufferedWriter writer = new BufferedWriter(new FileWriter("Hoteis.txt"));
+					
+					try {
+					    BufferedReader reader = new BufferedReader(new FileReader("Hoteis.txt"));
+					    String line;
+					    //isso to puxando todas as linhas uma por uma
+					    while((line = reader.readLine()) != null) {
+					    	  ArrayList<Object> leia = new ArrayList<>();
+					    	  leia.add(line);
+					    	  Hoteis = leia;
+					    	  
+					      
+					    }
+					      reader.close();
+					    } catch (IOException e) {
+					      e.printStackTrace();
+					    }
+					
 				if(hotel1.getHotelExiste().equals(false)) {
 					hotel1.adicionarHotel();
 					
@@ -40,6 +61,7 @@ public class Main {
 					
 					Hoteis.add(hotel2);
 					hotel2.setHotelExiste(true);
+					//writer.write(hotel1+"\n"+hotel2+"\n");
 					
 					System.out.println(hotel2.toString());
 				}
@@ -48,6 +70,7 @@ public class Main {
 					
 					Hoteis.add(hotel3);
 					hotel3.setHotelExiste(true);
+					//writer.write(hotel1+"\n"+hotel2+"\n"+hotel3+"\n");
 					
 					System.out.println(hotel3.toString());
 				}
@@ -56,6 +79,7 @@ public class Main {
 					
 					Hoteis.add(hotel4);
 					hotel4.setHotelExiste(true);
+					//writer.write(hotel1+"\n"+hotel2+"\n"+hotel3+"\n"+hotel4+"\n");
 					
 					System.out.println(hotel4.toString());
 				}
@@ -64,10 +88,17 @@ public class Main {
 					
 					Hoteis.add(hotel1);
 					hotel5.setHotelExiste(true);
+					//writer.write(hotel1+"\n"+hotel2+"\n"+hotel3+"\n"+hotel4+"\n"+hotel5);
 				}
 				else {
 					System.out.println("Nao ha espaco disponivel para um novo hotel no sistema.");
 				}
+				writer.write(Hoteis+"");
+				writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
 			break;
 			
 			case 2:
@@ -149,7 +180,15 @@ public class Main {
 				else {
 					System.out.println("Nao ha nenhum hotel no sistema.");
 				}
-
+			break;
+			
+			case 0:
+				System.out.println("Encerrando o sistema...");
+				return;
+			
+			default:
+				System.out.println("opcao invalida.");
+			break;
 			}
 		}
 		

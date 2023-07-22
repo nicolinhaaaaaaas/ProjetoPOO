@@ -1,6 +1,7 @@
 package projeto;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.io.*;
 
@@ -13,9 +14,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		ArrayList<Object> Hoteis = new ArrayList<>();
+		List<Hotel> Hoteis = new ArrayList<>();
 		
-		Hotel hotel1 = new Hotel("Nicolas", "1", "1", 15, true);
+		Hotel hotel1 = new Hotel(null, null, null, 0, false);
 		Hotel hotel2 = new Hotel(null, null, null, 0, false);
 		Hotel hotel3 = new Hotel(null, null, null, 0, false);
 		Hotel hotel4 = new Hotel(null, null, null, 0, false);
@@ -25,42 +26,82 @@ public class Main {
 		
 		Login login = new Login();
 		
+		
+		
+		//Recuperando a lista dos hoteis salvos no sistema.
+		List<Hotel> hoteisSalvos = null;
+		
+		try {
+            FileInputStream fileIn = new FileInputStream("hotel.ser");
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+            hoteisSalvos = (List<Hotel>) objectIn.readObject();
+            objectIn.close();
+            fileIn.close();
+            System.out.println("Objeto lido com sucesso!");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } 
+		
+		if (hoteisSalvos != null) {
+            for (Hotel hotel : hoteisSalvos) {
+                //if(hotel1.getHotelExiste().equals(false)) {
+                	hotel1.setNomeHotel(hotel.getNomeHotel());
+                	hotel1.setEndereco(hotel.getEndereco());
+                	hotel1.setDescricao(hotel.getDescricao());
+                	hotel1.setQuarto(hotel.getQuarto());
+                	hotel1.setHotelExiste(true);
+               /* }
+                if(hotel2.getHotelExiste().equals(false)) {
+                	hotel2.setNomeHotel(hotel.getNomeHotel());
+                	hotel2.setEndereco(hotel.getEndereco());
+                	hotel2.setDescricao(hotel.getDescricao());
+                	hotel2.setQuarto(hotel.getQuarto());
+                	hotel2.setHotelExiste(true);
+                }
+                if(hotel3.getHotelExiste().equals(false)) {
+                	hotel3.setNomeHotel(hotel.getNomeHotel());
+                	hotel3.setEndereco(hotel.getEndereco());
+                	hotel3.setDescricao(hotel.getDescricao());
+                	hotel3.setQuarto(hotel.getQuarto());
+                	hotel3.setHotelExiste(true);
+                }
+                if(hotel4.getHotelExiste().equals(false)) {
+                	hotel4.setNomeHotel(hotel.getNomeHotel());
+                	hotel4.setEndereco(hotel.getEndereco());
+                	hotel4.setDescricao(hotel.getDescricao());
+                	hotel4.setQuarto(hotel.getQuarto());
+                	hotel4.setHotelExiste(true);
+                }
+                if(hotel5.getHotelExiste().equals(false)) {
+                	hotel5.setNomeHotel(hotel.getNomeHotel());
+                	hotel5.setEndereco(hotel.getEndereco());
+                	hotel5.setDescricao(hotel.getDescricao());
+                	hotel5.setQuarto(hotel.getQuarto());
+                	hotel5.setHotelExiste(true);
+                } */
+            }
+        }
+		
 
-		while(opcoes != "sair"){
+		/*while(opcoes != "sair"){
 			menu();
 			opcoes = scanner.next();
 			
 			switch(opcoes) {
 			
-			case "administrador":
+			case "administrador": */
 				
-				while(opcoes2 != 0) {
+				while(true) {
 					opcoesAdm();
 					opcoes2 = scanner.nextInt();
 					
 					switch(opcoes2) {
 				
 					case 1:
+						
 						try {
-							BufferedWriter writer = new BufferedWriter(new FileWriter("Hoteis.txt"));
-							
-							try {
-							    BufferedReader reader = new BufferedReader(new FileReader("Hoteis.txt"));
-							    String line;
-							    //isso to puxando todas as linhas uma por uma
-							    while((line = reader.readLine()) != null) {
-							    	  ArrayList<Object> leia = new ArrayList<>();
-							    	  leia.add(line);
-							    	  Hoteis = leia;
-							    	  
-							    	  System.out.println(Hoteis);
-							    	  
-							      
-							    }
-							      reader.close();
-							    } catch (IOException e) {
-							      e.printStackTrace();
-							    }
+							FileOutputStream fileOut = new FileOutputStream("hotel.ser");
+							ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
 							
 						if(hotel1.getHotelExiste().equals(false)) {
 							hotel1.adicionarHotel();
@@ -75,7 +116,6 @@ public class Main {
 							
 							Hoteis.add(hotel2);
 							hotel2.setHotelExiste(true);
-							//writer.write(hotel1+"\n"+hotel2+"\n");
 							
 							System.out.println(hotel2.toString());
 						}
@@ -84,7 +124,6 @@ public class Main {
 							
 							Hoteis.add(hotel3);
 							hotel3.setHotelExiste(true);
-							//writer.write(hotel1+"\n"+hotel2+"\n"+hotel3+"\n");
 							
 							System.out.println(hotel3.toString());
 						}
@@ -93,7 +132,6 @@ public class Main {
 							
 							Hoteis.add(hotel4);
 							hotel4.setHotelExiste(true);
-							//writer.write(hotel1+"\n"+hotel2+"\n"+hotel3+"\n"+hotel4+"\n");
 							
 							System.out.println(hotel4.toString());
 						}
@@ -102,14 +140,16 @@ public class Main {
 							
 							Hoteis.add(hotel1);
 							hotel5.setHotelExiste(true);
-							//writer.write(hotel1+"\n"+hotel2+"\n"+hotel3+"\n"+hotel4+"\n"+hotel5);
 						}
 						else {
 							System.out.println("Nao ha espaco disponivel para um novo hotel no sistema.");
 						}
-						writer.write(Hoteis+"");
-						writer.close();
-						} catch (IOException e) {
+						
+							objectOut.writeObject(Hoteis);
+							objectOut.close();
+							fileOut.close();
+						}
+						catch(IOException e){
 							e.printStackTrace();
 						}
 						
@@ -206,7 +246,7 @@ public class Main {
 					}
 				}
 				
-			break;	
+		/*	break;	
 				
 			case "cliente":
 				
@@ -255,9 +295,7 @@ public class Main {
 			}
 			
 		}
-
-	
-	scanner.close();	
+*/	
 		
 	}
 	

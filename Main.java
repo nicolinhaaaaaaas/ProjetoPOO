@@ -2,231 +2,296 @@ package projeto;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.*;
 
 public class Main {
 	
-	static Integer opcoes;
-	static Integer opcoes2;
-	static Scanner scanner = new Scanner(System.in);
+	
 
 	public static void main(String[] args) {
 		
 		ArrayList<Object> Hoteis = new ArrayList<>();
+		ArrayList<String> Clientes = new ArrayList<>();
+		
+		Integer opcoes = 1;
+		Integer opcoes2 = 1;
+		Scanner scanner = new Scanner(System.in);
+		
+		Cliente cliente = new Cliente(null, null, null, 0, false, null, false);
+		
+		Login login = new Login();
 		
 		Hotel hotel1 = new Hotel(null, null, null, 0, false);
 		Hotel hotel2 = new Hotel(null, null, null, 0, false);
 		Hotel hotel3 = new Hotel(null, null, null, 0, false);
 		Hotel hotel4 = new Hotel(null, null, null, 0, false);
 		Hotel hotel5 = new Hotel(null, null, null, 0, false);
-		
-		
 
-		while(true) {
-			opcoesAdm();
-			int opcao = scanner.nextInt();
-			
-			switch(opcao) {
-		
+		while (opcoes != 7) {
+			menu();
+			opcoes = scanner.nextInt();
+			switch(opcoes) {
 			case 1:
-				try {
-					BufferedWriter writer = new BufferedWriter(new FileWriter("Hoteis.txt"));
-					
-					try {
-					    BufferedReader reader = new BufferedReader(new FileReader("Hoteis.txt"));
-					    String line;
-					    //isso to puxando todas as linhas uma por uma
-					    while((line = reader.readLine()) != null) {
-					    	  ArrayList<Object> leia = new ArrayList<>();
-					    	  leia.add(line);
-					    	  Hoteis = leia;
-					    	  
-					      
-					    }
-					      reader.close();
-					    } catch (IOException e) {
-					      e.printStackTrace();
-					    }
-					
-				if(hotel1.getHotelExiste().equals(false)) {
-					hotel1.adicionarHotel();
-					
-					Hoteis.add(hotel1);
-					hotel1.setHotelExiste(true);
-					
-					System.out.println(hotel1.toString());
-				}
-				else if(hotel2.getHotelExiste().equals(false)) {
-					hotel2.adicionarHotel();
-					
-					Hoteis.add(hotel2);
-					hotel2.setHotelExiste(true);
-					//writer.write(hotel1+"\n"+hotel2+"\n");
-					
-					System.out.println(hotel2.toString());
-				}
-				else if(hotel3.getHotelExiste().equals(false)) {
-					hotel3.adicionarHotel();
-					
-					Hoteis.add(hotel3);
-					hotel3.setHotelExiste(true);
-					//writer.write(hotel1+"\n"+hotel2+"\n"+hotel3+"\n");
-					
-					System.out.println(hotel3.toString());
-				}
-				else if(hotel4.getHotelExiste().equals(false)) {
-					hotel4.adicionarHotel();
-					
-					Hoteis.add(hotel4);
-					hotel4.setHotelExiste(true);
-					//writer.write(hotel1+"\n"+hotel2+"\n"+hotel3+"\n"+hotel4+"\n");
-					
-					System.out.println(hotel4.toString());
-				}
-				else if(hotel5.getHotelExiste().equals(false)) {
-					hotel5.adicionarHotel();
-					
-					Hoteis.add(hotel1);
-					hotel5.setHotelExiste(true);
-					//writer.write(hotel1+"\n"+hotel2+"\n"+hotel3+"\n"+hotel4+"\n"+hotel5);
-				}
-				else {
-					System.out.println("Nao ha espaco disponivel para um novo hotel no sistema.");
-				}
-				writer.write(Hoteis+"");
-				writer.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 				
-			break;
+				while(opcoes != 0) {
+					opcoesAdm();
+					opcoes = scanner.nextInt();
+					
+					switch(opcoes) {
+				
+					case 1:
+						if(hotel1.getHotelExiste().equals(false)) {
+							hotel1.adicionarHotel();
+							
+							Hoteis.add(hotel1);
+							hotel1.setHotelExiste(true);
+							
+							System.out.println(hotel1.toString());
+						}
+						else if(hotel2.getHotelExiste().equals(false)) {
+							hotel2.adicionarHotel();
+							
+							Hoteis.add(hotel2);
+							hotel2.setHotelExiste(true);
+							
+							System.out.println(hotel2.toString());
+						}
+						else if(hotel3.getHotelExiste().equals(false)) {
+							hotel3.adicionarHotel();
+							
+							Hoteis.add(hotel3);
+							hotel3.setHotelExiste(true);
+							
+							System.out.println(hotel3.toString());
+						}
+						else if(hotel4.getHotelExiste().equals(false)) {
+							hotel4.adicionarHotel();
+							
+							Hoteis.add(hotel4);
+							hotel4.setHotelExiste(true);
+							
+							System.out.println(hotel4.toString());
+						}
+						else if(hotel5.getHotelExiste().equals(false)) {
+							hotel5.adicionarHotel();
+							
+							Hoteis.add(hotel1);
+							hotel5.setHotelExiste(true);
+						}
+						else {
+							System.out.println("Nao ha espaco disponivel para um novo hotel no sistema.");
+						}
+					break;
+					
+					case 2:
+						System.out.println("Qual hotel deseja remover do sistema?");
+						System.out.println(hotel1.getNomeHotel() + "\t" + hotel2.getNomeHotel() + "\t" + hotel3.getNomeHotel() + "\t" + hotel4.getNomeHotel() + "\t" + hotel5.getNomeHotel());
+						System.out.print("Digite o nome do hotel que deseja remover: ");
+						String hotelRemover = scanner.next();
+						
+						if(hotelRemover.equals(hotel1.getNomeHotel())) {
+							hotel1.removerHotel();
+							hotel1.setHotelExiste(false);
+						}
+						else if(hotelRemover.equals(hotel2.getNomeHotel())) {
+							hotel2.removerHotel();
+							hotel2.setHotelExiste(false);
+						}
+						else if(hotelRemover.equals(hotel3.getNomeHotel())) {
+							hotel3.removerHotel();
+							hotel3.setHotelExiste(false);
+						}
+						else if(hotelRemover.equals(hotel4.getNomeHotel())) {
+							hotel4.removerHotel();
+							hotel4.setHotelExiste(false);
+						}
+						else if(hotelRemover.equals(hotel5.getNomeHotel())) {
+							hotel5.removerHotel();
+							hotel5.setHotelExiste(false);
+						}
+						else {
+							System.out.println("Operacao cancelada");
+						}
+						
+					break;
+					
+					case 3:
+						System.out.println("Qual hotel deseja modificar sistema?");
+						System.out.println(hotel1.getNomeHotel() + "\t" + hotel2.getNomeHotel() + "\t" + hotel3.getNomeHotel() + "\t" + hotel4.getNomeHotel() + "\t" + hotel5.getNomeHotel());
+						System.out.print("Digite o nome do hotel que deseja modificar: ");
+						String hotelModificar = scanner.next();
+						
+						if(hotelModificar.equals(hotel1.getNomeHotel())) {
+							hotel1.modificarHotel();
+						}
+						else if(hotelModificar.equals(hotel2.getNomeHotel())) {
+							hotel2.modificarHotel();
+						}
+						else if(hotelModificar.equals(hotel3.getNomeHotel())) {
+							hotel3.modificarHotel();
+						}
+						else if(hotelModificar.equals(hotel4.getNomeHotel())) {
+							hotel4.modificarHotel();
+						}
+						else if(hotelModificar.equals(hotel5.getNomeHotel())) {
+							hotel5.modificarHotel();
+						}
+						else {
+							System.out.println("Operacao cancelada");
+						}
+						
+					break;
+					
+					case 4:
+						
+						if(Hoteis != null) {
+							System.out.println("Estes sao os hoteis disponiveis no sistema:");
+							if(hotel1.getHotelExiste() == true) {
+								System.out.println(hotel1.toString());
+							}
+							if(hotel2.getHotelExiste() == true) {
+								System.out.println(hotel2.toString());
+							}
+							if(hotel3.getHotelExiste() == true) {
+								System.out.println(hotel3.toString());
+							}
+							if(hotel4.getHotelExiste() == true) {
+								System.out.println(hotel4.toString());
+							}
+							if(hotel5.getHotelExiste() == true) {
+								System.out.println(hotel5.toString());
+							}
+						}
+						else {
+							System.out.println("Nao ha nenhum hotel no sistema.");
+						}
+					break;
+					
+					case 0:
+						System.out.println("Voltando para o menu...");
+					break;
+
+					}
+				}
+			break;	
 			
 			case 2:
-				System.out.println("Qual hotel deseja remover do sistema?");
-				System.out.println(hotel1.getNomeHotel() + "\t" + hotel2.getNomeHotel() + "\t" + hotel3.getNomeHotel() + "\t" + hotel4.getNomeHotel() + "\t" + hotel5.getNomeHotel());
-				System.out.print("Digite o nome do hotel que deseja remover: ");
-				String hotelRemover = scanner.next();
 				
-				if(hotelRemover.equals(hotel1.getNomeHotel())) {
-					hotel1.removerHotel();
-					hotel1.setHotelExiste(false);
-				}
-				else if(hotelRemover.equals(hotel2.getNomeHotel())) {
-					hotel2.removerHotel();
-					hotel2.setHotelExiste(false);
-				}
-				else if(hotelRemover.equals(hotel3.getNomeHotel())) {
-					hotel3.removerHotel();
-					hotel3.setHotelExiste(false);
-				}
-				else if(hotelRemover.equals(hotel4.getNomeHotel())) {
-					hotel4.removerHotel();
-					hotel4.setHotelExiste(false);
-				}
-				else if(hotelRemover.equals(hotel5.getNomeHotel())) {
-					hotel5.removerHotel();
-					hotel5.setHotelExiste(false);
-				}
-				else {
-					System.out.println("Operacao cancelada");
-				}
+				login.loginCliente();
+				Clientes.add(login.getUsuario());
 				
+				while(opcoes != 0) {
+					opcoesCliente();
+					opcoes = scanner.nextInt();
+					
+					switch(opcoes) {
+					
+					case 1:
+						if(Hoteis != null) {
+							System.out.println("Estes sao os hoteis disponiveis no sistema:");
+							if(hotel1.getHotelExiste() == true) {
+								System.out.println(hotel1.toString());
+							}
+							if(hotel2.getHotelExiste() == true) {
+								System.out.println(hotel2.toString());
+							}
+							if(hotel3.getHotelExiste() == true) {
+								System.out.println(hotel3.toString());
+							}
+							if(hotel4.getHotelExiste() == true) {
+								System.out.println(hotel4.toString());
+							}
+							if(hotel5.getHotelExiste() == true) {
+								System.out.println(hotel5.toString());
+							}
+						}
+					break;
+					
+					case 2:
+						System.out.println("Qual dos hoteis disponiveis voce deseja alugar 1 quarto?");
+						System.out.println(hotel1.getNomeHotel() + "\t"+hotel2.getNomeHotel() + "\t"+hotel3.getNomeHotel() 
+																+ "\t"+hotel4.getNomeHotel() + "\t"+hotel5.getNomeHotel());
+						System.out.print("Digite o nome do hotel que deseja ir: ");
+						String escolherHotel = scanner.next();
+						
+						if(escolherHotel.equals(hotel1.getNomeHotel())) {
+							cliente.escolherHotel();
+							cliente.setNomeHotel(escolherHotel);
+						}
+						else if(escolherHotel.equals(hotel2.getNomeHotel())) {
+							cliente.escolherHotel();
+							cliente.setNomeHotel(escolherHotel);
+						}
+						else if(escolherHotel.equals(hotel3.getNomeHotel())) {
+							cliente.escolherHotel();
+							cliente.setNomeHotel(escolherHotel);
+						}
+						else if(escolherHotel.equals(hotel4.getNomeHotel())) {
+							cliente.escolherHotel();
+							cliente.setNomeHotel(escolherHotel);
+						}
+						else if(escolherHotel.equals(hotel5.getNomeHotel())) {
+							cliente.escolherHotel();
+							cliente.setNomeHotel(escolherHotel);
+						}
+						else {
+							System.out.println("Opcao invalida");
+						}
+					break;
+					
+					case 3:
+						if(cliente.getNomeHotel() == hotel1.getNomeHotel()) {
+							cliente.irEmbora();
+						}
+						else if(cliente.getNomeHotel() == hotel2.getNomeHotel()) {
+							cliente.irEmbora();
+						}
+						else if(cliente.getNomeHotel() == hotel3.getNomeHotel()) {
+							cliente.irEmbora();
+						}
+						else if(cliente.getNomeHotel() == hotel4.getNomeHotel()) {
+							cliente.irEmbora();
+						}
+						else if(cliente.getNomeHotel() == hotel5.getNomeHotel()) {
+							cliente.irEmbora();
+						}
+					break;
+					
+					case 0:
+						System.out.println("Voltando ao menu principal...");
+					break;
+					}
+				}
 			break;
 			
-			case 3:
-				System.out.println("Qual hotel deseja modificar sistema?");
-				System.out.println(hotel1.getNomeHotel() + "\t" + hotel2.getNomeHotel() + "\t" + hotel3.getNomeHotel() + "\t" + hotel4.getNomeHotel() + "\t" + hotel5.getNomeHotel());
-				System.out.print("Digite o nome do hotel que deseja modificar: ");
-				String hotelModificar = scanner.next();
-				
-				if(hotelModificar.equals(hotel1.getNomeHotel())) {
-					hotel1.modificarHotel();
-				}
-				else if(hotelModificar.equals(hotel2.getNomeHotel())) {
-					hotel2.modificarHotel();
-				}
-				else if(hotelModificar.equals(hotel3.getNomeHotel())) {
-					hotel3.modificarHotel();
-				}
-				else if(hotelModificar.equals(hotel4.getNomeHotel())) {
-					hotel4.modificarHotel();
-				}
-				else if(hotelModificar.equals(hotel5.getNomeHotel())) {
-					hotel5.modificarHotel();
-				}
-				else {
-					System.out.println("Operacao cancelada");
-				}
-				
-			break;
-			
-			case 4:
-				
-				if(hotel1.getNomeHotel() != null) {
-					hotel1.listarHotel();
-					if(hotel2.getNomeHotel() != null) {
-						hotel2.listarHotel();
-						if(hotel3.getNomeHotel() != null) {
-							hotel3.listarHotel();
-							if(hotel4.getNomeHotel() != null) {
-								hotel4.listarHotel();
-								if(hotel5.getNomeHotel() != null) {
-									hotel5.listarHotel();
-								}else {}
-							}else {}
-						}else {}
-					}else {}
-				}
-				else {
-					System.out.println("Nao ha nenhum hotel no sistema.");
-				}
-			break;
-			
-			case 0:
-				System.out.println("Encerrando o sistema...");
+			case 9:
 				return;
-			
-			default:
-				System.out.println("opcao invalida.");
-			break;
+				
 			}
-		}
-		
-		
-		
-		//Administrador adm = new Administrador();
-		//Login login = new Login();
-		
-		//login.loginAdministrador();
-		
-		
-		/*
-		System.out.println("Bem vindo a rede de hoteis Marinho!");
-		System.out.println("Por favor, se identifique: ");
+		}		
+	}	
+	
+	public static void menu() {
+		System.out.println("Seja bem vindo ao sistema de hoteis Marinho. Como voce se identifica?");
 		System.out.println("(1)- Administrador");
 		System.out.println("(2)- Cliente");
-		opcoes = scanner.nextInt();
-		
-		if(opcoes.equals(1)) {
-			adm.escolhaAdm();
-		}
-		
-		else if(opcoes.equals(2)) {
-			
-		}
-		
-		else {
-			System.out.println("Opcao invalida");
-		}
-		*/
+		System.out.println("\n(9)- Sair");
 	}
 	
-	static void opcoesAdm() {
+	public static void opcoesAdm() {
 		System.out.println("Voce escolheu a opcao de Administrador. O que deseja fazer?");
 		System.out.println("(1)- Adicionar um hotel ao sistema.");
 		System.out.println("(2)- Remover um hotel do sistema.");
 		System.out.println("(3)- Modificar um hotel do sistema.");
 		System.out.println("(4)- Listar os hoteis do sistema.");
-		System.out.println("(0)- Sair");		
+		System.out.println("\n(0)- Voltar ao menu principal");		
+	}
+	
+	public static void opcoesCliente() {
+		System.out.println("O que deseja fazer?");
+		System.out.println("(1)- Ver hoteis disponiveis.");
+		System.out.println("(2)- Alugar quartos.");
+		System.out.println("(3)- Ir embora.");
+		System.out.println("(4)- Sair da conta.");
+		System.out.println("\n(0)- Voltar ao menu principal");
 	}
 }
